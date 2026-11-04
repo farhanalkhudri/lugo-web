@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LUGO menghadirkan pembelajaran Bahasa Arab dan Al-Qur'an untuk anak usia 5–14 tahun. Online dan offline, dua kali seminggu.">
+  <meta name="theme-color" content="#153c32">
+  <title>LUGO — Belajar Bahasa Arab dan Al-Qur'an</title>
+  <style>
+    :root {
+      --green: #153c32;
+      --green-2: #245747;
+      --cream: #f7f4ec;
+      --paper: #fffdf8;
+      --gold: #c8a96a;
+      --ink: #20312b;
+      --muted: #68756e;
+      --line: #e7e1d5;
+      --shadow: 0 18px 50px rgba(21,60,50,.10);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; background: rgba(255,253,248,.94);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(231,225,213,.8);
+    }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: .12em; color: var(--green); font-size: 1.25rem; }
+    .brand-mark { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--green); color: var(--gold); font-family: Georgia, serif; font-size: 1.2rem; }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: #526159; font-size: .92rem; }
+    .nav-links a:hover { color: var(--green); }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+      border: 0; border-radius: 999px; padding: 13px 22px; font-weight: 750;
+      cursor: pointer; transition: .2s ease; font-size: .95rem;
+    }
+    .btn-primary { background: var(--gold); color: #18382f; box-shadow: 0 8px 22px rgba(200,169,106,.22); }
+    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.04); }
+    .btn-outline { border: 1px solid rgba(255,255,255,.4); color: white; }
+    .hero { overflow: hidden; position: relative; background: var(--green); color: white; }
+    .hero::before, .hero::after { content:""; position:absolute; border:1px solid rgba(200,169,106,.22); border-radius:50%; pointer-events:none; }
+    .hero::before { width:520px; height:520px; right:-170px; top:-250px; }
+    .hero::after { width:370px; height:370px; right:-90px; top:-175px; }
+    .hero-grid { display:grid; grid-template-columns: 1.05fr .95fr; align-items:center; gap:50px; padding:82px 0 88px; position:relative; z-index:1; }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; font-weight: 800; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.5rem, 5.3vw, 4.65rem); line-height:1.08; letter-spacing:-.035em; margin:17px 0 20px; font-weight:600; }
+    .hero p { color: #d9e3dc; font-size:1.08rem; max-width:570px; margin:0 0 28px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
+    .hero-note { margin-top:23px; color:#c4d3ca; font-size:.88rem; }
+    .visual-card {
+      min-height:390px; border-radius:30px; padding:30px; position:relative; overflow:hidden;
+      background: linear-gradient(145deg, #f5efdf, #e8dfc9); color:var(--green);
+      box-shadow: 0 25px 70px rgba(0,0,0,.22);
+    }
+    .visual-card::before { content:""; position:absolute; width:260px; height:260px; border:1px solid rgba(21,60,50,.17); border-radius:50%; right:-70px; top:-65px; }
+    .visual-card::after { content:""; position:absolute; width:190px; height:190px; border:1px solid rgba(21,60,50,.17); border-radius:50%; right:-35px; top:-30px; }
+    .visual-label { font-size:.75rem; letter-spacing:.15em; font-weight:800; color:#7a6847; }
+    .visual-title { font-family:Georgia,serif; font-size:2.3rem; line-height:1.15; margin:35px 0 12px; max-width:340px; }
+    .arabic { font-family: Georgia, serif; font-size:2rem; color:#9b7b43; direction:rtl; margin:15px 0; }
+    .book-stack { position:absolute; bottom:28px; right:28px; width:190px; height:135px; }
+    .book { position:absolute; width:160px; height:95px; border-radius:8px 13px 13px 8px; box-shadow:0 12px 22px rgba(21,60,50,.18); }
+    .book.one { background:#245747; bottom:0; right:0; transform:rotate(-8deg); }
+    .book.two { background:#c8a96a; bottom:22px; right:17px; transform:rotate(5deg); }
+    .book.three { background:#fffdf8; bottom:43px; right:35px; transform:rotate(-3deg); border:1px solid #e2d7c0; }
+    .book::after { content:""; position:absolute; inset:12px; border:1px solid rgba(21,60,50,.25); border-radius:3px; }
+    section { padding:78px 0; }
+    .section-soft { background:var(--cream); }
+    .section-head { max-width:690px; margin-bottom:34px; }
+    .section-kicker { color:#9b7b43; text-transform:uppercase; font-weight:800; letter-spacing:.14em; font-size:.75rem; }
+    h2 { font-family:Georgia,serif; font-size:clamp(2rem,4vw,3rem); line-height:1.15; color:var(--green); margin:10px 0 14px; font-weight:600; letter-spacing:-.025em; }
+    .lead { color:var(--muted); font-size:1.04rem; margin:0; }
+    .problem-grid, .benefit-grid, .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card { background:white; border:1px solid var(--line); border-radius:var(--radius); padding:25px; box-shadow:0 8px 28px rgba(21,60,50,.04); }
+    .icon { width:46px; height:46px; border-radius:15px; display:grid; place-items:center; background:#edf2ed; color:var(--green); font-size:1.35rem; margin-bottom:17px; }
+    .card h3 { margin:0 0 8px; color:var(--green); font-size:1.08rem; }
+    .card p { color:var(--muted); margin:0; font-size:.94rem; }
+    .solution-band { background:var(--green); color:white; border-radius:28px; padding:35px; display:flex; justify-content:space-between; align-items:center; gap:25px; margin-top:34px; }
+    .solution-band h3 { font-family:Georgia,serif; font-size:1.8rem; margin:0 0 8px; font-weight:600; }
+    .solution-band p { color:#d5e0d9; margin:0; max-width:650px; }
+    .benefit-grid .card { padding:28px; }
+    .number { color:var(--gold); font-family:Georgia,serif; font-size:2rem; line-height:1; margin-bottom:17px; }
+    .proof-note { background:#f7f4ec; border:1px dashed #c8b991; padding:22px; border-radius:18px; color:#6e644f; margin-top:22px; }
+    .offer { background:var(--green); color:white; border-radius:30px; padding:38px; display:grid; grid-template-columns:1fr .9fr; gap:35px; align-items:center; }
+    .offer h2 { color:white; margin-top:8px; }
+    .offer p { color:#d8e3dc; }
+    .price { font-family:Georgia,serif; color:var(--gold); font-size:3.4rem; line-height:1.1; margin:12px 0 0; }
+    .price small { font:600 .95rem Inter, sans-serif; color:#d8e3dc; }
+    .offer-list { list-style:none; padding:0; margin:20px 0 0; display:grid; gap:10px; color:#edf3ef; }
+    .offer-list li::before { content:"✓"; color:var(--gold); font-weight:900; margin-right:10px; }
+    .age-boxes { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:20px; }
+    .age { border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.07); padding:15px 8px; text-align:center; border-radius:15px; }
+    .age strong { display:block; color:var(--gold); font-size:1.35rem; }
+    .age span { color:#d8e3dc; font-size:.78rem; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; counter-reset:step; }
+    .step { background:white; border:1px solid var(--line); border-radius:18px; padding:21px; }
+    .step::before { counter-increment:step; content:"0" counter(step); color:#b18d4e; font-family:Georgia,serif; font-size:1.6rem; display:block; margin-bottom:14px; }
+    .step strong { display:block; color:var(--green); margin-bottom:6px; }
+    .step span { color:var(--muted); font-size:.9rem; }
+    .final-cta { text-align:center; background:var(--cream); }
+    .final-box { background:var(--green); color:white; border-radius:30px; padding:55px 25px; }
+    .final-box h2 { color:white; max-width:720px; margin:10px auto 15px; }
+    .final-box p { color:#d7e2db; max-width:620px; margin:0 auto 25px; }
+    footer { background:#102f27; color:#c7d4cc; padding:28px 0; font-size:.88rem; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:center; gap:15px; flex-wrap:wrap; }
+    .footer-brand { color:white; font-weight:900; letter-spacing:.12em; }
+    .small { font-size:.8rem; color:#aebfb5; }
+    .wa-float { position:fixed; right:20px; bottom:20px; z-index:30; border-radius:999px; padding:14px 18px; background:#1f9d62; color:white; font-weight:800; box-shadow:0 10px 30px rgba(0,0,0,.2); }
+    @media (max-width:800px) {
+      .nav-links { display:none; }
+      .nav .btn { padding:10px 15px; font-size:.84rem; }
+      .hero-grid { grid-template-columns:1fr; padding:60px 0; gap:35px; }
+      .visual-card { min-height:330px; }
+      .problem-grid, .benefit-grid, .proof-grid { grid-template-columns:1fr; }
+      .solution-band { flex-direction:column; align-items:flex-start; }
+      .offer { grid-template-columns:1fr; padding:28px; }
+      .steps { grid-template-columns:1fr 1fr; }
+      section { padding:60px 0; }
+    }
+    @media (max-width:440px) {
+      .container { width:min(100% - 28px, 1120px); }
+      .brand { font-size:1.05rem; }
+      .brand-mark { width:34px; height:34px; }
+      .nav { min-height:65px; }
+      .hero-grid { padding:48px 0; }
+      .visual-card { min-height:300px; padding:23px; }
+      .visual-title { font-size:1.9rem; }
+      .book-stack { transform:scale(.78); transform-origin:bottom right; }
+      .steps { grid-template-columns:1fr; }
+      .price { font-size:2.8rem; }
+      .age-boxes { gap:6px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- PENTING: Ganti nomor WhatsApp pada variabel WHATSAPP_NUMBER di bagian script bawah. -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#beranda" aria-label="LUGO Beranda"><span class="brand-mark">ل</span><span>LUGO</span></a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#tentang">Tentang</a><a href="#manfaat">Manfaat</a><a href="#program">Program</a><a href="#cara-daftar">Cara Daftar</a>
+      </nav>
+      <a class="btn btn-primary wa-link" href="#kontak">Konsultasi</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Program belajar anak usia 5–14 tahun</div>
+          <h1>Satu Program,<br>Dua Pembelajaran Penting untuk Buah Hati.</h1>
+          <p>LUGO menghadirkan pembelajaran Bahasa Arab dan Al-Qur'an untuk anak dengan metode terstruktur dan mudah dipahami. Tersedia pilihan kelas online dan offline.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary wa-link" href="#kontak">Konsultasi & Daftar →</a>
+            <a class="btn btn-outline" href="#program">Lihat Program</a>
+          </div>
+          <div class="hero-note">Bahasa Arab • Al-Qur'an • Dua kali per minggu</div>
+        </div>
+        <div class="visual-card" aria-label="Ilustrasi pembelajaran Bahasa Arab dan Al-Qur'an">
+          <div class="visual-label">LEARN • GROW • UNDERSTAND</div>
+          <div class="visual-title">Awali perjalanan belajar dari hal sederhana.</div>
+          <div class="arabic">اللُّغَةُ الْعَرَبِيَّةُ</div>
+          <div style="font-size:.9rem;color:#65746a;max-width:220px">Belajar Bahasa Arab dan Al-Qur'an secara bertahap.</div>
+          <div class="book-stack"><div class="book one"></div><div class="book two"></div><div class="book three"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tentang">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Untuk Ayah dan Bunda</div>
+          <h2>Ingin memberikan pengalaman belajar yang bermakna untuk anak?</h2>
+          <p class="lead">Setiap anak memiliki proses belajar yang berbeda. Orang tua membutuhkan pilihan pembelajaran yang sesuai usia, mudah diakses, dan memiliki arah belajar yang jelas.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="card"><div class="icon">⌕</div><h3>Bingung mulai dari mana?</h3><p>Mengenalkan Bahasa Arab dan pembelajaran Al-Qur'an perlu dimulai dari materi yang sesuai dengan kemampuan anak.</p></article>
+          <article class="card"><div class="icon">◷</div><h3>Ingin belajar lebih teratur?</h3><p>Kegiatan belajar yang terjadwal dapat membantu keluarga membangun rutinitas belajar anak.</p></article>
+          <article class="card"><div class="icon">⌂</div><h3>Butuh pilihan yang fleksibel?</h3><p>Pilihan online dan offline memberi alternatif cara mengikuti pembelajaran.</p></article>
+        </div>
+        <div class="solution-band">
+          <div><h3>Kenalan dengan LUGO</h3><p>Program pembelajaran nonformal yang menggabungkan Bahasa Arab dan Al-Qur'an dalam satu program untuk anak usia 5–14 tahun.</p></div>
+          <a class="btn btn-primary wa-link" href="#kontak">Tanyakan Program</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft" id="manfaat">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Mengapa LUGO?</div>
+          <h2>Dua pembelajaran dalam satu program.</h2>
+          <p class="lead">LUGO dirancang untuk menjadi pilihan belajar tambahan bagi keluarga yang ingin mengenalkan Bahasa Arab dan pembelajaran Al-Qur'an kepada anak.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="card"><div class="number">01</div><h3>Mengenal Bahasa Arab</h3><p>Anak mendapatkan kesempatan mempelajari Bahasa Arab secara bertahap melalui program belajar LUGO.</p></article>
+          <article class="card"><div class="number">02</div><h3>Belajar Al-Qur'an</h3><p>Pembelajaran Al-Qur'an menjadi bagian dari program, sehingga kedua bidang belajar tersedia dalam satu layanan.</p></article>
+          <article class="card"><div class="number">03</div><h3>Kelompok sesuai usia</h3><p>Peserta dibagi menjadi kelompok usia 5–8, 9–11, dan 12–14 tahun.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bukti">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Kenali proses belajar</div>
+          <h2>Kepercayaan dibangun melalui proses yang nyata.</h2>
+          <p class="lead">Lihat materi, metode, dan dokumentasi pembelajaran LUGO. Informasi dan dokumentasi akan ditambahkan sesuai kegiatan nyata program.</p>
+        </div>
+        <div class="proof-grid">
+          <article class="card"><div class="icon">▤</div><h3>Contoh materi belajar</h3><p>Materi Bahasa Arab dan Al-Qur'an yang benar-benar digunakan dalam pembelajaran.</p></article>
+          <article class="card"><div class="icon">✎</div><h3>Aktivitas dan latihan</h3><p>Dokumentasi kegiatan atau hasil latihan peserta, dengan izin orang tua.</p></article>
+          <article class="card"><div class="icon">♡</div><h3>Ulasan orang tua</h3><p>Testimoni asli dari orang tua peserta setelah tersedia dan telah mendapat persetujuan.</p></article>
+        </div>
+        <div class="proof-note"><strong>Catatan:</strong> LUGO tidak menampilkan testimoni atau klaim hasil belajar yang belum terverifikasi. Silakan hubungi tim untuk memperoleh informasi program yang tersedia.</div>
+      </div>
+    </section>
+
+    <section class="section-soft" id="program">
+      <div class="container">
+        <div class="offer">
+          <div>
+            <div class="eyebrow">Program pembelajaran LUGO</div>
+            <h2>Mulai belajar bersama LUGO.</h2>
+            <p>Satu biaya bulanan untuk pembelajaran Bahasa Arab dan Al-Qur'an.</p>
+            <div class="price">Rp100.000 <small>/ bulan</small></div>
+            <ul class="offer-list">
+              <li>Pembelajaran Bahasa Arab</li>
+              <li>Pembelajaran Al-Qur'an</li>
+              <li>Pertemuan 2 kali seminggu</li>
+              <li>Pilihan online dan offline</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-weight:800;color:#f5e8c9">Pilih kelompok usia anak</div>
+            <div class="age-boxes">
+              <div class="age"><strong>5–8</strong><span>tahun</span></div>
+              <div class="age"><strong>9–11</strong><span>tahun</span></div>
+              <div class="age"><strong>12–14</strong><span>tahun</span></div>
+            </div>
+            <p style="font-size:.9rem;margin-top:22px">Jadwal, durasi pertemuan, ketersediaan kelas, dan detail lokasi offline dikonfirmasi melalui tim LUGO.</p>
+            <a class="btn btn-primary wa-link" href="#kontak" style="width:100%;margin-top:8px">Tanya Jadwal & Ketersediaan →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cara-daftar">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Mudah memulai</div>
+          <h2>Bagaimana cara mendaftar?</h2>
+          <p class="lead">Hubungi tim LUGO untuk mendapatkan informasi yang sesuai dengan kebutuhan belajar anak.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><strong>Hubungi LUGO</strong><span>Kirim pesan melalui WhatsApp.</span></div>
+          <div class="step"><strong>Sampaikan usia anak</strong><span>Informasikan usia dan kebutuhan belajar anak.</span></div>
+          <div class="step"><strong>Konsultasikan kelas</strong><span>Tanyakan pilihan online/offline dan jadwal yang tersedia.</span></div>
+          <div class="step"><strong>Lanjutkan pendaftaran</strong><span>Ikuti arahan tim untuk proses pendaftaran.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="kontak">
+      <div class="container">
+        <div class="final-box">
+          <div class="eyebrow">LUGO • Belajar dan bertumbuh</div>
+          <h2>Mari mulai perjalanan belajar buah hati bersama LUGO!</h2>
+          <p>Konsultasikan kebutuhan belajar anak dan dapatkan informasi program, jadwal, serta pendaftaran melalui WhatsApp.</p>
+          <a class="btn btn-primary wa-link" href="#kontak">Konsultasi & Pendaftaran →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><div class="footer-brand">LUGO</div><div class="small">Belajar Bahasa Arab dan Al-Qur'an untuk Anak</div></div>
+      <div class="small">© <span id="year"></span> LUGO. Informasi program dapat berubah sesuai ketersediaan kelas.</div>
+    </div>
+  </footer>
+
+  <a class="wa-float wa-link" href="#kontak" aria-label="Hubungi LUGO melalui WhatsApp">WhatsApp ↗</a>
+
+  <script>
+    /*
+      CARA MENGAKTIFKAN WHATSAPP:
+      1. Ganti angka di bawah dengan nomor WhatsApp LUGO.
+      2. Gunakan kode negara 62, tanpa tanda +, spasi, atau angka 0 di depan.
+      Contoh format: 6281234567890
+    */
+    const WHATSAPP_NUMBER = "GANTI_DENGAN_NOMOR_WA";
+    const MESSAGE = "Assalamu'alaikum, saya ingin bertanya tentang program LUGO untuk anak saya. Mohon informasi program, jadwal, dan pendaftarannya.";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.querySelectorAll(".wa-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!/^62\d{8,15}$/.test(WHATSAPP_NUMBER)) {
+          event.preventDefault();
+          alert("Nomor WhatsApp belum diatur. Silakan ganti WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp LUGO.");
+          return;
+        }
+        event.preventDefault();
+        const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(MESSAGE);
+        window.open(url, "_blank", "noopener");
+      });
+    });
+  </script>
+</body>
+</html>
